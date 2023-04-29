@@ -13,10 +13,10 @@ const errorHandler = (err, req, res, next) => {
       .join(",");
   }
   //check for unique email below
-  //  if(err.code && err.code === 11000){
-  //  defaultError.statusCode = httpStatusCodes.BAD_REQUEST
-  //  defaultError.msg = `${Object.keys(err.keyvalue)}field has to be unique`
-  //  }
+   if(err.code && err.code === 11000){
+    defaultError.statusCode = httpStatusCodes.BAD_REQUEST
+   defaultError.msg = `${Object.keys(err.keyValue)} field has to be unique`
+   }
   res.status(defaultError.statusCode).json({ msg: defaultError.msg });
 };
 

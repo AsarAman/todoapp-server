@@ -3,6 +3,7 @@ const connectDB = require("./db/connect");
 const express = require("express");
 const app = express();
 const todosRouter = require("./routes/todosRoutes");
+const userRouter = require('./routes/userRoutes')
 require("dotenv").config();
 const notFound = require('./middlewares/notFound')
 const errorHandler = require('./middlewares/errorHandler')
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/todos", todosRouter);
+app.use('/api/v1/auth', userRouter)
 app.use(notFound)
 app.use(errorHandler)
 
