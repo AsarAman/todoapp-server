@@ -1,27 +1,27 @@
 const Todos = require("../models/Todo");
 
+const BadRequestError = require("../errors/bad-request");
+
 const getTodos = async (req, res) => {
   const todos = await Todos.find({});
   res.status(200).json({ todos, amount: todos.length });
 };
 
-
 const createTodo = async (req, res) => {
   const { name, description } = req.body;
   if (!name || !description) {
-    return res.status(400).send("Please provide all values");
+    throw new BadRequestError("Please provide all values");
   }
   const todo = await Todos.create({ name, description });
   res.json({ todo });
 };
 
-
 const updateTodo = async (req, res) => {
   const { id } = req.params;
-  const { name, description } = req.body;
-  if (!name || !description){
-    return res.status(400).send("please provide all values");
-  }
+
+  //if (!name || !description){
+  //  return res.status(400).send("please provide all values");
+  //}
 
   const task = await Todos.findOneAndUpdate({ _id: id }, req.body, {
     new: true,
@@ -34,7 +34,6 @@ const updateTodo = async (req, res) => {
   }
   res.status(200).json({ task });
 };
-
 
 const deleteTodo = async (req, res) => {
   const { id } = req.params;

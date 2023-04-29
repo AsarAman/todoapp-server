@@ -1,9 +1,12 @@
+require('express-async-errors')
 const connectDB = require("./db/connect");
 const express = require("express");
 const app = express();
 const todosRouter = require("./routes/todosRoutes");
 require("dotenv").config();
 const notFound = require('./middlewares/notFound')
+const errorHandler = require('./middlewares/errorHandler')
+
 
 //middleware
 app.use(express.json());
@@ -15,6 +18,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/todos", todosRouter);
 app.use(notFound)
+app.use(errorHandler)
 
 const port = 5000;
 
