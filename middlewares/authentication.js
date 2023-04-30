@@ -6,11 +6,13 @@ const auth = async (req, res, next) => {
   //check for headers
 
   const authHeader = req.headers.authorization;
+  console.log(authHeader)
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     throw new UnauthenticatedError("Authentication failed");
   }
 
   const token = authHeader.split(" ")[1];
+  console.log(token)
   
 
   try {

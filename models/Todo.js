@@ -10,6 +10,11 @@ const TodoSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please Provide Description"],
     },
+    createdBy:{
+      type: mongoose.Types.ObjectId,
+      ref:'Users',
+      required:[true, 'please provide user']
+    }
   },
   { timestamps: true }
 );
