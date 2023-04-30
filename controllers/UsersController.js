@@ -8,7 +8,10 @@ const registerUser = async (req, res) => {
     throw new BadRequestError("Please provide all values");
   }
   const person = await User.create({ name, email, password });
-  res.status(httpStatusCodes.CREATED).json({ person });
+  const token = person.assignJWT();
+  res
+    .status(httpStatusCodes.CREATED)
+    .json({ user: { name: person.name }, token });
 };
 
 const loginUser = async (req, res) => {
@@ -25,7 +28,9 @@ const loginUser = async (req, res) => {
     throw new UnauthenticatedError("Invalid credentials");
   }
 
-  res.status(httpStatusCodes.OK).json({ user });
+  const token = user.assignJWT();
+
+  res.status(httpStatusCodes.OK).json({ user: { name: user.name }, token });
 };
 
 module.exports = {

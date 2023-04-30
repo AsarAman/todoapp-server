@@ -4,7 +4,7 @@ const BadRequestError = require("../errors/bad-request");
 
 const getTodos = async (req, res) => {
   const todos = await Todos.find({});
-  res.status(200).json({ todos, amount: todos.length });
+  res.status(200).json({ todos, amount: todos.length , user:req.user});
 };
 
 const createTodo = async (req, res) => {
